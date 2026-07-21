@@ -33,7 +33,7 @@ namespace FitnessPlatform.Models
            ErrorMessage = "Height must be between 50 and 250 cm.")]
         public double height { get; set; }//  user input
 
-        [Required]
+        [Required(ErrorMessage = "Weight is required.")]
         [Range(20, 300,
           ErrorMessage = "Weight must be between 20 and 300 kg.")]
         public double currentWeight { get; set; }//user input
@@ -41,7 +41,7 @@ namespace FitnessPlatform.Models
         public DateTime joinDate { get; set; } = DateTime.Now;
 
       
-        [Required]
+        [Required(ErrorMessage = "user is required.")]
         [ForeignKey("User")]
         public int userId {  get; set; }
 
