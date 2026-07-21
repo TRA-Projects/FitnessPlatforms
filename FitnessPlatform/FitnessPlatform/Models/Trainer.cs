@@ -39,7 +39,7 @@ namespace FitnessPlatform.Models
         public string? certification { get; set; } // user input
 
 
-        [Required(ErrorMessage = "yearsOfExperience is required.")]
+        [Required]
         [ForeignKey("User")]
         public int userId { get; set; }   // Foreign Key Value comes from the registered user account.
 
