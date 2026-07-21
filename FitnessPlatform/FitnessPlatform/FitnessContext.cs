@@ -18,5 +18,7 @@ namespace FitnessPlatform
         public DbSet<WorkoutSession> WorkoutSessions { get; set; }
         public DbSet<BodyMeasurement> BodyMeasurements { get; set; }
         public DbSet<NutritionPlan> NutritionPlans { get; set; }
+
+      
     }
 }
