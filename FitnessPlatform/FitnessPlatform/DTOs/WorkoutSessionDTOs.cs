@@ -12,7 +12,7 @@ namespace FitnessPlatform.DTOs
 
         [Required]
         [Range(1, 300, ErrorMessage = "Duration must be between 1 and 300 minutes.")]
-        public int DurationInMinutes { get; set; }
+        public int durationInMinutes { get; set; }
     }
 
     public class WorkoutSessionOutputDTO
