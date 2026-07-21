@@ -3,7 +3,7 @@
 namespace FitnessPlatform.DTOs
 {
     // Used when creating a new member
-    public class MemberInputDTOs
+    public class MemberInputDTO
     {
         [Required]
         public int userId { get; set; }
@@ -13,12 +13,14 @@ namespace FitnessPlatform.DTOs
         public string fullName { get; set; }
 
         [Required]
+        [MaxLength(15)]
         public string phoneNumber { get; set; }
 
         [Required]
         public DateTime dateOfBirth { get; set; }
 
         [Required]
+        [MaxLength(10)]
         public string gender { get; set; }
 
         [Required]
@@ -31,7 +33,7 @@ namespace FitnessPlatform.DTOs
 
     }
     // Used when displaying all members
-    public class MemberOutputDTOs
+    public class MemberOutputDTO
     {
         public int memberId { get; set; }
 
