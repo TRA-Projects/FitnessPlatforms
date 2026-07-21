@@ -7,6 +7,7 @@ namespace FitnessPlatform.Models
     public class NutritionPlan
     {
 
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int nutritionPlanId { get; set; } //System-generated .
