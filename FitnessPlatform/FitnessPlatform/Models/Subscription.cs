@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessPlatform.Models
 {
+    
     [Table("Subscriptions")]
     public class Subscription
     {
