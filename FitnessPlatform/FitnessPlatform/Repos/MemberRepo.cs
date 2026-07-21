@@ -1,6 +1,9 @@
-﻿namespace FitnessPlatform.Repos
+﻿using FitnessPlatform.Repos.Interfaces;
+
+namespace FitnessPlatform.Repos
 {
-    public class MemberRepo
+    public class MemberRepo : IMemberRepository
     {
+
     }
 }
