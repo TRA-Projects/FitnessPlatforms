@@ -15,25 +15,25 @@ namespace FitnessPlatform.Models
 
         [Required]
         [Range(1, 300, ErrorMessage = "Duration must be between 1 and 300 minutes.")]
-        public int DurationInMinutes { get; set; } //calculated by the system
+        public int durationInMinutes { get; set; } //calculated by the system
 
         // Calculated automatically by the system based on the workout program and duration.
         [Range(0, 5000, ErrorMessage = "Calories burned must be between 0 and 5000.")]
-        public int CaloriesBurned { get; set; }
+        public int caloriesBurned { get; set; }
 
         // Updated automatically by the system
         // True if the member completed the workout session.
-        public bool IsCompleted { get; set; } = false;
+        public bool isCompleted { get; set; } = false;
 
      
         [Required]
         [ForeignKey("Member")]
-        public int MemberId { get; set; }// Selected automatically when the member starts a workout session.
+        public int memberId { get; set; }// Selected automatically when the member starts a workout session.
         public Member Member { get; set; } // Navigation property - One WorkoutSession belongs to one Member
 
         [Required]
         [ForeignKey("WorkoutProgram")]
-        public int ProgramId { get; set; } // Selected from the assigned workout program.
+        public int programId { get; set; } // Selected from the assigned workout program.
         public WorkoutProgram WorkoutProgram { get; set; } // Navigation property - One WorkoutSession belongs to one WorkoutProgram
 
     }
