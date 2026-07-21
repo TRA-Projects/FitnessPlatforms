@@ -54,7 +54,7 @@ namespace FitnessPlatform.Models
 
         public List<WorkoutSession>? WorkoutSessions { get; set; }  // One Member can attend many workout sessions
 
-        public List<BodyMeasurement>? BodyMeasurement { get; set; }  // One Member can have many body measurements
+        public List<BodyMeasurement>? BodyMeasurements { get; set; }  // One Member can have many body measurements
 
         public List<NutritionPlan>? NutritionPlans { get; set; } // One Member can have many nutrition plans
 

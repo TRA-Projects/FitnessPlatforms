@@ -1,13 +1,65 @@
-﻿namespace FitnessPlatform.DTOs
-{
-    public class MemberInputDTOs
-    {
-    }
+﻿using System.ComponentModel.DataAnnotations;
 
-    public class MemberOutputDTOs
+namespace FitnessPlatform.DTOs
+{
+    // Used when creating a new member
+    public class MemberInputDTO
     {
+        [Required]
+        public int userId { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string fullName { get; set; }
+
+        [Required]
+        [MaxLength(15)]
+        public string phoneNumber { get; set; }
+
+        [Required]
+        public DateTime dateOfBirth { get; set; }
+
+        [Required]
+        [MaxLength(10)]
+        public string gender { get; set; }
+
+        [Required]
+        [Range(50, 250)]
+        public double height { get; set; }
+
+        [Required]
+        [Range(20, 300)]
+        public double currentWeight { get; set; }
+
     }
+    // Used when displaying all members
+    public class MemberOutputDTO
+    {
+        public int memberId { get; set; }
+
+        public string fullName { get; set; }
+
+        public string phoneNumber { get; set; }
+    }
+    // Used when displaying member details
     public class MemberDetailsDTO
     {
+        public int memberId { get; set; }
+
+        public string fullName { get; set; }
+
+        public string phoneNumber { get; set; }
+
+        public DateTime dateOfBirth { get; set; }
+
+        public string gender { get; set; }
+
+        public double height { get; set; }
+
+        public double currentWeight { get; set; }
+
+        public DateTime joinDate { get; set; }
+
+        public string email { get; set; }
     }
 }
