@@ -1,6 +1,6 @@
-﻿using FitnessPlatform.Models;
+﻿using FitnessPlatform.Models;//use class and this class found in model folder
 
-namespace FitnessPlatform.Repos.Interfaces
+namespace FitnessPlatform.Repos.Interfaces//namespace mean the file Topic
 {
     public interface IWorkoutProgramRepository
     {
