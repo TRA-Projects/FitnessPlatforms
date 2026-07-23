@@ -2,6 +2,7 @@
 using FitnessPlatform.Repos.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace FitnessPlatform.Repos
 {
     public class ExerciseRepo : IExerciseRepository
