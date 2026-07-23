@@ -2,9 +2,11 @@
 using FitnessPlatform.Repos.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace FitnessPlatform.Repos
 {
-    public class WorkoutProgramRepo: IWorkoutProgramRepository
+    public class WorkoutProgramRepo : IWorkoutProgramRepository
     {
         private readonly FitnessContext _context;
 
