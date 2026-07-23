@@ -67,6 +67,13 @@ namespace FitnessPlatform.Repos
                 await _context.SaveChangesAsync();//save the deletion
             }
         }
+﻿using FitnessPlatform.Repos.Interfaces;
+
+namespace FitnessPlatform.Repos
+{
+    public class SubscriptionRepo : ISubscriptionRepository
+    {
+
     }
 
 }
