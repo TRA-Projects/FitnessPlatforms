@@ -52,12 +52,5 @@ namespace FitnessPlatform.Models
         public List<NutritionPlan>? NutritionPlans { get; set; }     // One Trainer can create many nutrition plans
 
 
-
-
-
-
-
-
-
     }
 }

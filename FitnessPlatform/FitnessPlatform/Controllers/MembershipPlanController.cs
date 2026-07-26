@@ -1,11 +1,13 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // Authentication: User must be logged in
     public class MembershipPlanController : ControllerBase
     {
         private readonly MembershipPlanService _membershipPlanService;
@@ -16,6 +18,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Get all membership plans
+        // Accessible for all authenticated users
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,6 +28,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Get membership plan by id
+        // Accessible for all authenticated users
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -37,6 +41,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Create membership plan
+        // Only Admin users can create membership plans
         [HttpPost]
         public async Task<IActionResult> Create(MembershipPlanDTOs dto)
         {
@@ -46,6 +51,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Update membership plan
+        // Only Admin users can update membership plans
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, MembershipPlanDTOs dto)
         {
@@ -58,6 +64,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Delete membership plan
+        // Only Admin users can delete membership plans
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
