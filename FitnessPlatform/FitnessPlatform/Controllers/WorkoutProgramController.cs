@@ -1,5 +1,6 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
@@ -29,6 +30,7 @@ namespace FitnessPlatform.Controllers
 
 
         // GET: api/WorkoutProgram/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWorkoutProgramById(int id)
         {
@@ -42,6 +44,7 @@ namespace FitnessPlatform.Controllers
 
 
         // POST: api/WorkoutProgram
+        [Authorize(Roles = "Trainer")]
         [HttpPost]
         public async Task<IActionResult> CreateWorkoutProgram(
             WorkoutProgramInputDTO dto)
