@@ -20,6 +20,7 @@ namespace FitnessPlatform.Controllers
 
         // GET: api/Member
         // Get all members
+        [Authorize(Roles = "Admin,Trainer")]
         [HttpGet]
         public async Task<IActionResult> GetAllMembers()
         {
@@ -29,6 +30,7 @@ namespace FitnessPlatform.Controllers
 
         // GET: api/Member/5
         // Get member by Id
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMemberById(int id)
         {
@@ -60,6 +62,7 @@ namespace FitnessPlatform.Controllers
 
         // PUT: api/Member/5
         // Update member
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMember(int id, MemberInputDTO dto)
         {
@@ -73,6 +76,7 @@ namespace FitnessPlatform.Controllers
 
         // DELETE: api/Member/5
         // Delete member
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMember(int id)
         {
