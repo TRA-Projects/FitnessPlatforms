@@ -7,9 +7,9 @@ namespace FitnessPlatform.Services
 {
     public class ProgramExerciseService
     {
-        private readonly ProgramExerciseRepo _programExerciseRepository;
+        private readonly IProgramExerciseRepository _programExerciseRepository;
 
-        public ProgramExerciseService(ProgramExerciseRepo programExerciseRepository)
+        public ProgramExerciseService(IProgramExerciseRepository programExerciseRepository)
         {
             _programExerciseRepository = programExerciseRepository;
         }
