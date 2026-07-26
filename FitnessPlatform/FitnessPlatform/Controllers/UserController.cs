@@ -1,5 +1,6 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
@@ -18,18 +19,20 @@ namespace FitnessPlatform.Controllers
                 _userService = userService;
             }
 
-            // GET: api/User
-            // Get all users
-            [HttpGet]
-            public async Task<IActionResult> GetAllUsers()
+          // GET: api/User
+          // Get all users
+          // Only Admin can see all users
+          [Authorize(Roles = "Admin")]
+          public async Task<IActionResult> GetAllUsers()
             {
                 var users = await _userService.GetAllUsers();
                 return Ok(users);
             }
 
-            // GET: api/User/5
-            // Get user by Id
-            [HttpGet("{id}")]
+        // GET: api/User/5
+        // Get user by Id
+         [Authorize]
+         [HttpGet("{id}")]
             public async Task<IActionResult> GetUserById(int id)
             {
                 var user = await _userService.GetUserById(id);
@@ -73,6 +76,7 @@ namespace FitnessPlatform.Controllers
 
         // PUT: api/User/5
         // Update user
+        [Authorize]
         [HttpPut("{id}")]
             public async Task<IActionResult> UpdateUser(int id, UpdateUserDTO dto)
             {
@@ -84,9 +88,10 @@ namespace FitnessPlatform.Controllers
                 return Ok("User updated successfully.");
             }
 
-            // DELETE: api/User/5
-            // Delete user
-            [HttpDelete("{id}")]
+        // DELETE: api/User/5
+        // Delete user
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteUser(int id)
             {
                 var result = await _userService.DeleteUser(id);
