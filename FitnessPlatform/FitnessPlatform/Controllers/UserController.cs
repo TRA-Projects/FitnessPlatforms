@@ -53,9 +53,27 @@ namespace FitnessPlatform.Controllers
                 return Ok("User registered successfully.");
             }
 
-            // PUT: api/User/5
-            // Update user
-            [HttpPut("{id}")]
+        // POST: api/User/login
+        // Login user and return JWT Token
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDTO dto)
+        {
+            var result = await _userService.Login(dto);
+
+
+            if (result == null)
+                return Unauthorized("Invalid email or password.");
+
+
+            return Ok(result);
+        }
+
+
+
+
+        // PUT: api/User/5
+        // Update user
+        [HttpPut("{id}")]
             public async Task<IActionResult> UpdateUser(int id, UpdateUserDTO dto)
             {
                 var result = await _userService.UpdateUser(id, dto);
