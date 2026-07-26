@@ -42,6 +42,17 @@ namespace FitnessPlatform.DTOs
             public decimal price { get; set; } // Membership Price
         }
 
+        public class MembershipPlanDetailsDTO
+        {
+            public int planId { get; set; } // Membership Plan ID
 
+            public string planName { get; set; } // Membership Plan Name
+
+            public decimal price { get; set; } // Membership Price
+
+            public int durationInDays { get; set; } // Membership Duration
+
+            public string? description { get; set; } // Membership Description
+        }
     }
 }

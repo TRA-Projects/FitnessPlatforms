@@ -13,6 +13,7 @@ namespace FitnessPlatform.Services
     //====================================================
     public class WorkoutSessionService
     {
+
         // Repository used to access WorkoutSession data
         private readonly IWorkoutSessionRepository _workoutSessionRepo;
 
@@ -123,5 +124,6 @@ namespace FitnessPlatform.Services
 
             return true;
         }
+
     }
 }

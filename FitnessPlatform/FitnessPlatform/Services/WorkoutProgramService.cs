@@ -1,6 +1,9 @@
-﻿namespace FitnessPlatform.Services
+﻿
+
+namespace FitnessPlatform.Services
 {
     public class WorkoutProgramService
     {
+       
     }
 }
