@@ -20,6 +20,7 @@ namespace FitnessPlatform.Controllers
 
 
         // GET: api/WorkoutProgram
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllWorkoutPrograms()
         {
