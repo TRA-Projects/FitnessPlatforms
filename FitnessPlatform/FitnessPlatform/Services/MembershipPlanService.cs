@@ -1,4 +1,5 @@
-﻿using FitnessPlatform.Models;
+﻿using FitnessPlatform.DTOs;
+using FitnessPlatform.Models;
 using FitnessPlatform.Repos;
 using FitnessPlatform.Repos.Interfaces;
 using static FitnessPlatform.DTOs.MembershipPlanDTOs;
@@ -47,7 +48,7 @@ namespace FitnessPlatform.Services
 
 
         // Create membership plan
-        public async Task CreatePlan(MembershipPlanInputDTO dto)
+        public async Task CreatePlan(MembershipPlanDTOs dto)
         {
             MembershipPlan plan = new MembershipPlan
             {
@@ -61,7 +62,7 @@ namespace FitnessPlatform.Services
         }
 
         // Update membership plan
-        public async Task<bool> UpdatePlan(int id, MembershipPlanInputDTO dto)
+        public async Task<bool> UpdatePlan(int id, MembershipPlanDTOs dto)
         {
             var plan = await _membershipPlanRepository.GetMembershipPlanById(id);
 
