@@ -1,14 +1,15 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Models;
 using FitnessPlatform.Repos;
+using FitnessPlatform.Repos.Interfaces;
 
 namespace FitnessPlatform.Services
 {
     public class BodyMeasurementService
     {
-        private readonly BodyMeasurementRepo _bodyMeasurementRepo;
+        private readonly IBodyMeasurementRepository _bodyMeasurementRepo;
 
-        public BodyMeasurementService(BodyMeasurementRepo bodyMeasurementRepo)
+        public BodyMeasurementService(IBodyMeasurementRepository bodyMeasurementRepo)
         {
             _bodyMeasurementRepo = bodyMeasurementRepo;
         }
