@@ -18,7 +18,7 @@ namespace FitnessPlatform.Controllers
             _memberService = memberService;
         }
 
-        // GET: api/Member
+       
         // Get all members
         [Authorize(Roles = "Admin,Trainer")]
         [HttpGet]
@@ -28,7 +28,6 @@ namespace FitnessPlatform.Controllers
             return Ok(members);
         }
 
-        // GET: api/Member/5
         // Get member by Id
         [Authorize]
         [HttpGet("{id}")]
@@ -42,7 +41,7 @@ namespace FitnessPlatform.Controllers
             return Ok(member);
         }
 
-        // POST: api/Member
+       
         // Create new member for current logged-in user
         [Authorize]
         [HttpPost]
@@ -60,7 +59,6 @@ namespace FitnessPlatform.Controllers
             return Ok("Member created successfully.");
         }
 
-        // PUT: api/Member/5
         // Update member
         [Authorize]
         [HttpPut("{id}")]
@@ -74,7 +72,6 @@ namespace FitnessPlatform.Controllers
             return Ok("Member updated successfully.");
         }
 
-        // DELETE: api/Member/5
         // Delete member
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]

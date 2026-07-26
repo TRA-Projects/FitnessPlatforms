@@ -21,7 +21,7 @@ namespace FitnessPlatform.Services
         {
             var users = await _userRepository.GetAllUsers();
 
-            return users.Select(u => new UserOutputDTO
+            return users.Select(u => new UserOutputDTO  //يحول Model إلى DTO
             {
                 userId = u.userId,
                 userName = u.userName,

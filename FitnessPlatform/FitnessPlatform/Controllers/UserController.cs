@@ -19,17 +19,18 @@ namespace FitnessPlatform.Controllers
                 _userService = userService;
             }
 
-          // GET: api/User
-          // Get all users
-          // Only Admin can see all users
-          [Authorize(Roles = "Admin")]
-          public async Task<IActionResult> GetAllUsers()
+        // Get all users
+        // Only Admin can see all users
+       
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
             {
                 var users = await _userService.GetAllUsers();
                 return Ok(users);
             }
 
-        // GET: api/User/5
+     
         // Get user by Id
          [Authorize]
          [HttpGet("{id}")]
@@ -43,7 +44,7 @@ namespace FitnessPlatform.Controllers
                 return Ok(user);
             }
 
-            // POST: api/User/register
+            
             // Register new user
             [HttpPost("register")]
             public async Task<IActionResult> Register(RegisterDTO dto)
@@ -56,7 +57,7 @@ namespace FitnessPlatform.Controllers
                 return Ok("User registered successfully.");
             }
 
-        // POST: api/User/login
+        
         // Login user and return JWT Token
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO dto)
@@ -74,7 +75,7 @@ namespace FitnessPlatform.Controllers
 
 
 
-        // PUT: api/User/5
+      
         // Update user
         [Authorize]
         [HttpPut("{id}")]
@@ -88,7 +89,7 @@ namespace FitnessPlatform.Controllers
                 return Ok("User updated successfully.");
             }
 
-        // DELETE: api/User/5
+     
         // Delete user
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
