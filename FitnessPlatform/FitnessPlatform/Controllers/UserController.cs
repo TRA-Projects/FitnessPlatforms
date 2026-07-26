@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
 {
+
   
         [ApiController]
         [Route("api/[controller]")]
@@ -79,3 +80,4 @@ namespace FitnessPlatform.Controllers
             }
         }
     }
+

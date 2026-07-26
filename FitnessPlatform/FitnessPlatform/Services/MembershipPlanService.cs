@@ -1,6 +1,96 @@
-﻿namespace FitnessPlatform.Services
+﻿using FitnessPlatform.DTOs;
+using FitnessPlatform.Models;
+using FitnessPlatform.Repos;
+using FitnessPlatform.Repos.Interfaces;
+using static FitnessPlatform.DTOs.MembershipPlanDTOs;
+
+namespace FitnessPlatform.Services
 {
     public class MembershipPlanService
     {
+        private readonly IMembershipPlanRepository _membershipPlanRepository;
+
+        public MembershipPlanService(IMembershipPlanRepository membershipPlanRepository)
+        {
+            _membershipPlanRepository = membershipPlanRepository;
+        }
+
+        // Get all membership plans
+        public async Task<IEnumerable<MembershipPlanOutputDTO>> GetAllPlans()
+        {
+            var plans = await _membershipPlanRepository.GetAllMembershipPlans();
+
+            return plans.Select(p => new MembershipPlanOutputDTO
+            {
+                planId = p.planId,
+                planName = p.planName,
+                price = p.price
+            });
+        }
+
+        // Get membership plan by id
+        public async Task<MembershipPlanDetailsDTO?> GetPlanById(int id)
+        {
+            var plan = await _membershipPlanRepository.GetMembershipPlanById(id);
+
+            if (plan == null)
+                return null;
+
+            return new MembershipPlanDetailsDTO
+            {
+                planId = plan.planId,
+                planName = plan.planName,
+                price = plan.price,
+                durationInDays = plan.durationInDays,
+                description = plan.Description
+            };
+        }
+
+
+        // Create membership plan
+        public async Task CreatePlan(MembershipPlanDTOs dto)
+        {
+            MembershipPlan plan = new MembershipPlan
+            {
+                planName = dto.planName,
+                price = dto.price,
+                durationInDays = dto.durationInDays,
+                Description = dto.description
+            };
+
+            await _membershipPlanRepository.CreateMembershipPlan(plan);
+        }
+
+        // Update membership plan
+        public async Task<bool> UpdatePlan(int id, MembershipPlanDTOs dto)
+        {
+            var plan = await _membershipPlanRepository.GetMembershipPlanById(id);
+
+            if (plan == null)
+                return false;
+
+            plan.planName = dto.planName;
+            plan.price = dto.price;
+            plan.durationInDays = dto.durationInDays;
+            plan.Description = dto.description;
+
+            await _membershipPlanRepository.UpdateMembershipPlan(plan);
+
+            return true;
+        }
+
+        // Delete membership plan
+        public async Task<bool> DeletePlan(int id)
+        {
+            var plan = await _membershipPlanRepository.GetMembershipPlanById(id);
+
+            if (plan == null)
+                return false;
+
+            await _membershipPlanRepository.DeleteMembershipPlan(id);
+
+            return true;
+        }
     }
 }
+
