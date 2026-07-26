@@ -1,6 +1,7 @@
 
 using FitnessPlatform.Repos;
 using FitnessPlatform.Repos.Interfaces;
+using FitnessPlatform.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessPlatform
@@ -44,6 +45,19 @@ namespace FitnessPlatform
 
             builder.Services.AddScoped<IWorkoutSessionRepository, WorkoutSessionRepo>();
 
+
+            // Services
+            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<MemberService>();
+            builder.Services.AddScoped<TrainerService>();
+            builder.Services.AddScoped<MembershipPlanService>();
+            builder.Services.AddScoped<ExerciseService>();
+            builder.Services.AddScoped<ProgramExerciseService>();
+            builder.Services.AddScoped<SubscriptionService>();
+            builder.Services.AddScoped<WorkoutProgramService>();
+            builder.Services.AddScoped<BodyMeasurementService>();
+            builder.Services.AddScoped<NutritionPlanService>();
+            builder.Services.AddScoped<WorkoutSessionService>();
             // Swagger Services
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
