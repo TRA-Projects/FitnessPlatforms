@@ -21,6 +21,7 @@ namespace FitnessPlatform.Repos
         {
             return await _context.NutritionPlans
                 .Include(n => n.Member)
+                .Include(n => n.Trainer)
                 .ToListAsync();
         }
 
@@ -30,6 +31,7 @@ namespace FitnessPlatform.Repos
         {
             return await _context.NutritionPlans
                 .Include(n => n.Member)
+                .Include(n => n.Trainer)
                 .FirstOrDefaultAsync(n => n.nutritionPlanId == id);
         }
 
