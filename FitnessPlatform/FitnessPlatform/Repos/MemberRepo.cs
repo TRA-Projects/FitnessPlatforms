@@ -8,10 +8,13 @@ namespace FitnessPlatform.Repos
     {
         private readonly FitnessContext _context;
 
-      public MemberRepo(FitnessContext context)
+
+
+        public MemberRepo(FitnessContext context)
         {
-            _context= context;
+            _context = context;
         }
+
 
         // Get all members
         public async Task<IEnumerable<Member>> GetAllMembers()
@@ -20,6 +23,8 @@ namespace FitnessPlatform.Repos
                 .Include(m => m.User)
                 .ToListAsync();
         }
+
+
         // Get member details by id
         public async Task<Member?> GetMemberById(int id)
         {
@@ -27,6 +32,7 @@ namespace FitnessPlatform.Repos
                 .Include(m => m.User)
                 .FirstOrDefaultAsync(m => m.memberId == id);
         }
+
 
         // Create member
         public async Task<Member> CreateMember(Member member)
@@ -37,6 +43,8 @@ namespace FitnessPlatform.Repos
 
             return member;
         }
+
+
         // Update member
         public async Task UpdateMember(Member member)
         {
@@ -44,6 +52,8 @@ namespace FitnessPlatform.Repos
 
             await _context.SaveChangesAsync();
         }
+
+
         // Delete member
         public async Task DeleteMember(int id)
         {
@@ -56,6 +66,5 @@ namespace FitnessPlatform.Repos
                 await _context.SaveChangesAsync();
             }
         }
-
     }
 }
