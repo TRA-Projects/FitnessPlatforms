@@ -87,12 +87,10 @@ namespace FitnessPlatform
                     ValidateIssuerSigningKey = true,
 
 
-                    ValidIssuer =
-                    builder.Configuration["JwtSettings:Issuer"],
+                    ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
 
 
-                    ValidAudience =
-                    builder.Configuration["JwtSettings:Audience"],
+                    ValidAudience =builder.Configuration["JwtSettings:Audience"],
 
 
                     IssuerSigningKey =
