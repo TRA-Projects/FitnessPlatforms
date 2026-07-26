@@ -7,9 +7,9 @@ namespace FitnessPlatform.Services
 {
     public class MemberService
     {
-        private readonly MemberRepo _memberRepository;
+        private readonly IMemberRepository _memberRepository;
 
-        public MemberService(MemberRepo memberRepository)
+        public MemberService(IMemberRepository memberRepository)
         {
             _memberRepository = memberRepository;
         }
