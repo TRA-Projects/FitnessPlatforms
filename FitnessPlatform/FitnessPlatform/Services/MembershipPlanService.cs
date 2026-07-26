@@ -27,7 +27,24 @@ namespace FitnessPlatform.Services
             });
         }
 
-       
+        // Get membership plan by id
+        public async Task<MembershipPlanDetailsDTO?> GetPlanById(int id)
+        {
+            var plan = await _membershipPlanRepository.GetMembershipPlanById(id);
+
+            if (plan == null)
+                return null;
+
+            return new MembershipPlanDetailsDTO
+            {
+                planId = plan.planId,
+                planName = plan.planName,
+                price = plan.price,
+                durationInDays = plan.durationInDays,
+                description = plan.Description
+            };
+        }
+
 
         // Create membership plan
         public async Task CreatePlan(MembershipPlanInputDTO dto)
