@@ -1,4 +1,5 @@
 ﻿using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static FitnessPlatform.DTOs.SubscriptionDTOs;
 
@@ -17,8 +18,9 @@ namespace FitnessPlatform.Controllers
             }
 
 
-            // GET: api/Subscription
-            [HttpGet]
+        // GET: api/Subscription
+        [Authorize]
+        [HttpGet]
             public async Task<IActionResult> GetAllSubscriptions()
             {
                 var subscriptions = await _subscriptionService.GetAllSubscriptions();
