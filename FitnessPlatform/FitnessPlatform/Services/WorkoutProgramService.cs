@@ -1,14 +1,15 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Models;
 using FitnessPlatform.Repos;
+using FitnessPlatform.Repos.Interfaces;
 
 namespace FitnessPlatform.Services
 {
     public class WorkoutProgramService
     {
-        private readonly WorkoutProgramRepo _workoutProgramRepository;
+        private readonly IWorkoutProgramRepository _workoutProgramRepository;
 
-        public WorkoutProgramService(WorkoutProgramRepo workoutProgramRepository)
+        public WorkoutProgramService(IWorkoutProgramRepository workoutProgramRepository)
         {
             _workoutProgramRepository = workoutProgramRepository;
         }
