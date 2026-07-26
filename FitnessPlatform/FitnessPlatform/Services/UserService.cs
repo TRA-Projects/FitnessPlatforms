@@ -8,10 +8,12 @@ namespace FitnessPlatform.Services
     public class UserService
     {
      private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
+        private readonly AuthService _authService;
+        // Constructor
+        public UserService(IUserRepository userRepository, AuthService authService)
         {
             _userRepository = userRepository;
+            _authService = authService;
         }
 
         // Get all users
@@ -74,6 +76,56 @@ namespace FitnessPlatform.Services
 
             return true;
         }
+
+        // Login user and generate JWT Token
+        public async Task<LoginResponseDTO?> Login(LoginDTO dto)
+        {
+            // Find user by email
+            var user =
+                await _userRepository.GetUserByEmail(dto.email);
+
+
+            if (user == null)
+                return null;
+
+
+
+            // Check password
+            bool passwordValid =
+                BCrypt.Net.BCrypt.Verify(
+                    dto.Password,
+                    user.PasswordHash
+                );
+
+
+            if (!passwordValid)
+                return null;
+
+
+
+            // Generate token
+            var token =
+                _authService.GenerateToken(
+                    user.userId,
+                    user.userName,
+                    user.Role
+                );
+
+
+
+            return new LoginResponseDTO
+            {
+                Token = token,
+
+                userName = user.userName,
+
+                Role = user.Role
+            };
+        }
+
+
+
+
         // Update user
         public async Task<bool> UpdateUser(int id, UpdateUserDTO dto)
         {

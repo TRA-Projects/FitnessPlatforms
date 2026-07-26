@@ -1,6 +1,8 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FitnessPlatform.Controllers
 {
@@ -38,12 +40,20 @@ namespace FitnessPlatform.Controllers
             return Ok(member);
         }
 
-        // POST: api/Member/{userId}
-        // Create new member
-        [HttpPost("{userId}")]
-        public async Task<IActionResult> CreateMember(int userId, MemberInputDTO dto)
+        // POST: api/Member
+        // Create new member for current logged-in user
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateMember(MemberInputDTO dto)
         {
+            // Get userId from JWT token
+            var userId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+            );
+
+
             await _memberService.CreateMember(dto, userId);
+
 
             return Ok("Member created successfully.");
         }

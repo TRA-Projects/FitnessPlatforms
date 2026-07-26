@@ -2,7 +2,10 @@
 using FitnessPlatform.Repos;
 using FitnessPlatform.Repos.Interfaces;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace FitnessPlatform
 {
@@ -58,6 +61,47 @@ namespace FitnessPlatform
             builder.Services.AddScoped<BodyMeasurementService>();
             builder.Services.AddScoped<NutritionPlanService>();
             builder.Services.AddScoped<WorkoutSessionService>();
+
+            // JWT Authentication Service
+            builder.Services.AddScoped<AuthService>();
+            // Configure JWT Authentication
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+
+                options.DefaultChallengeScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters =
+                new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+
+                    ValidateAudience = true,
+
+                    ValidateLifetime = true,
+
+                    ValidateIssuerSigningKey = true,
+
+
+                    ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+
+
+                    ValidAudience =builder.Configuration["JwtSettings:Audience"],
+
+
+                    IssuerSigningKey =
+                    new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(
+                        builder.Configuration["JwtSettings:SecretKey"]!)
+                    )
+                };
+            });
+
+
             // Swagger Services
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -72,7 +116,7 @@ namespace FitnessPlatform
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
