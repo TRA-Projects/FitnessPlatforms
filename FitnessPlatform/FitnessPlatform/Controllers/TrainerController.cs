@@ -1,11 +1,13 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // Authentication: يجب تسجيل الدخول للوصول للـ Controller
     public class TrainerController : ControllerBase
     {
         private readonly TrainerService _trainerService;
@@ -16,6 +18,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Get all trainers
+        // Any authenticated user can view trainers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,6 +28,7 @@ namespace FitnessPlatform.Controllers
 
 
         // Create trainer
+        // Only Admin can create trainer
         [HttpPost]
         public async Task<IActionResult> Create(TrainerInputDTOs dto)
         {
@@ -34,6 +38,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Update trainer
+        // Only Admin can update trainer
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, TrainerInputDTOs dto)
         {
@@ -46,6 +51,7 @@ namespace FitnessPlatform.Controllers
         }
 
         // Delete trainer
+        // Only Admin can delete trainer
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
