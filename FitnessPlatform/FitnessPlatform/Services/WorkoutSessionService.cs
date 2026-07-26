@@ -1,6 +1,7 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Models;
 using FitnessPlatform.Repos;
+using FitnessPlatform.Repos.Interfaces;
 
 namespace FitnessPlatform.Services
 {
@@ -13,10 +14,10 @@ namespace FitnessPlatform.Services
     public class WorkoutSessionService
     {
         // Repository used to access WorkoutSession data
-        private readonly WorkoutSessionRepo _workoutSessionRepo;
+        private readonly IWorkoutSessionRepository _workoutSessionRepo;
 
         // Constructor Injection
-        public WorkoutSessionService(WorkoutSessionRepo workoutSessionRepo)
+        public WorkoutSessionService(IWorkoutSessionRepository workoutSessionRepo)
         {
             _workoutSessionRepo = workoutSessionRepo;
         }
