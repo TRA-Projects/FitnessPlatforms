@@ -1,11 +1,13 @@
 ﻿using FitnessPlatform.DTOs;
 using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProgramExerciseController : ControllerBase
     {
         private readonly ProgramExerciseService _programExerciseService;
@@ -18,7 +20,9 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // GET: api/ProgramExercise
+        // Member + Trainer
         [HttpGet]
+        [Authorize(Roles = "Member,Trainer")]
         public async Task<IActionResult> GetAllProgramExercises()
         {
             var programExercises = await _programExerciseService.GetAllProgramExercises();
@@ -27,8 +31,10 @@ namespace FitnessPlatform.Controllers
         }
 
         //============================
-        // GET: api/ProgramExercise/5
+        // GET: api/ProgramExercise/{id}
+        // Member + Trainer
         [HttpGet("{id}")]
+        [Authorize(Roles = "Member,Trainer")]
         public async Task<IActionResult> GetProgramExerciseById(int id)
         {
             var programExercise = await _programExerciseService.GetProgramExerciseById(id);
@@ -43,7 +49,9 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // POST: api/ProgramExercise
+        // Trainer only
         [HttpPost]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> CreateProgramExercise(ProgramExerciseInputDTO dto)
         {
             await _programExerciseService.CreateProgramExercise(dto);
@@ -52,8 +60,10 @@ namespace FitnessPlatform.Controllers
         }
 
         //============================
-        // PUT: api/ProgramExercise/5
+        // PUT: api/ProgramExercise/{id}
+        // Trainer only
         [HttpPut("{id}")]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> UpdateProgramExercise(int id, ProgramExerciseInputDTO dto)
         {
             var result = await _programExerciseService.UpdateProgramExercise(id, dto);
@@ -66,8 +76,10 @@ namespace FitnessPlatform.Controllers
         }
 
         //============================
-        // DELETE: api/ProgramExercise/5
+        // DELETE: api/ProgramExercise/{id}
+        // Trainer only
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> DeleteProgramExercise(int id)
         {
             var result = await _programExerciseService.DeleteProgramExercise(id);
