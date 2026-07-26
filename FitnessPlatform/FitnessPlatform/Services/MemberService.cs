@@ -47,11 +47,11 @@ namespace FitnessPlatform.Services
             };
         }
         // Create member
-        public async Task CreateMember(MemberInputDTO dto)
+        public async Task CreateMember(MemberInputDTO dto,int userId)
         {
             Member member = new Member
             {
-                userId = dto.userId,
+                userId = userId,
                 fullName = dto.fullName,
                 phoneNumber = dto.phoneNumber,
                 dateOfBirth = dto.dateOfBirth,
