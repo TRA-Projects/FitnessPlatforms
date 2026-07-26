@@ -1,6 +1,77 @@
-﻿namespace FitnessPlatform.Controllers
+﻿using FitnessPlatform.DTOs;
+using FitnessPlatform.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FitnessPlatform.Controllers
 {
-    public class MemberController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class MemberController : ControllerBase
     {
+        private readonly MemberService _memberService;
+
+        // Constructor
+        public MemberController(MemberService memberService)
+        {
+            _memberService = memberService;
+        }
+
+        // GET: api/Member
+        // Get all members
+        [HttpGet]
+        public async Task<IActionResult> GetAllMembers()
+        {
+            var members = await _memberService.GetAllMembers();
+            return Ok(members);
+        }
+
+        // GET: api/Member/5
+        // Get member by Id
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMemberById(int id)
+        {
+            var member = await _memberService.GetMemberById(id);
+
+            if (member == null)
+                return NotFound("Member not found.");
+
+            return Ok(member);
+        }
+
+        // POST: api/Member/{userId}
+        // Create new member
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> CreateMember(int userId, MemberInputDTO dto)
+        {
+            await _memberService.CreateMember(dto, userId);
+
+            return Ok("Member created successfully.");
+        }
+
+        // PUT: api/Member/5
+        // Update member
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMember(int id, MemberInputDTO dto)
+        {
+            var result = await _memberService.UpdateMember(id, dto);
+
+            if (!result)
+                return NotFound("Member not found.");
+
+            return Ok("Member updated successfully.");
+        }
+
+        // DELETE: api/Member/5
+        // Delete member
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMember(int id)
+        {
+            var result = await _memberService.DeleteMember(id);
+
+            if (!result)
+                return NotFound("Member not found.");
+
+            return Ok("Member deleted successfully.");
+        }
     }
 }
