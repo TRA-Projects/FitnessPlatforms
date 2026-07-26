@@ -19,6 +19,34 @@ namespace FitnessPlatform
         public DbSet<BodyMeasurement> BodyMeasurements { get; set; }
         public DbSet<NutritionPlan> NutritionPlans { get; set; }
 
-      
+
+
+
+
+
+
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<NutritionPlan>()
+                .HasOne(np => np.Trainer)
+                .WithMany(t => t.NutritionPlans)
+                .HasForeignKey(np => np.trainerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WorkoutProgram>()
+                .HasOne(wp => wp.Trainer)
+                .WithMany(t => t.WorkoutPrograms)
+                .HasForeignKey(wp => wp.trainerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WorkoutSession>()
+       .HasOne(ws => ws.WorkoutProgram)
+       .WithMany(wp => wp.WorkoutSessions)
+       .HasForeignKey(ws => ws.programId)
+       .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }
