@@ -2,8 +2,7 @@
 
 namespace FitnessPlatform.DTOs
 {
-    public class BodyMeasurementDTOs
-    {
+  
         public class BodyMeasurementInputDTO
         {
 
@@ -114,4 +113,4 @@ namespace FitnessPlatform.DTOs
         }
 
     }
-}
+
