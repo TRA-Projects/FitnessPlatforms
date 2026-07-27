@@ -29,15 +29,17 @@ namespace FitnessPlatform.Services
 
         }
               // Create trainer
-        public async Task CreateTrainer(TrainerInputDTOs dto)
+        public async Task CreateTrainer(TrainerInputDTOs dto, int userId)
         {
             Trainer trainer = new Trainer
             {
+                userId = userId,
                 fullName = dto.fullName,
+                phoneNumber = dto.phoneNumber,
                 specialization = dto.specialization,
                 yearsOfExperience = dto.yearsOfExperience,
-                phoneNumber = dto.phoneNumber,
-               
+                certification = dto.certification
+
             };
 
             await _trainerRepository.CreateTrainer(trainer);

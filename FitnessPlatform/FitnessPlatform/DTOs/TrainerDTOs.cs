@@ -4,8 +4,7 @@ namespace FitnessPlatform.DTOs
 {
     public class TrainerInputDTOs
     {
-        [Required]
-        public int userId { get; set; }
+        
 
 
         [Required(ErrorMessage = "Full name is required.")]

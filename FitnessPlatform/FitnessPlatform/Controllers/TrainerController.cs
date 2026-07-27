@@ -2,6 +2,7 @@
 using FitnessPlatform.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FitnessPlatform.Controllers
 {
@@ -32,7 +33,9 @@ namespace FitnessPlatform.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TrainerInputDTOs dto)
         {
-            await _trainerService.CreateTrainer(dto);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            await _trainerService.CreateTrainer(dto, userId);
 
             return Ok("Trainer created successfully.");
         }
