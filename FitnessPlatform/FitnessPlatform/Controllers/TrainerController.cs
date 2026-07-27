@@ -8,7 +8,7 @@ namespace FitnessPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // Authentication: يجب تسجيل الدخول للوصول للـ Controller
+    [Authorize] // يجب تسجيل الدخول للوصول إلى هذا الـ Controller
     public class TrainerController : ControllerBase
     {
         private readonly TrainerService _trainerService;
@@ -18,8 +18,9 @@ namespace FitnessPlatform.Controllers
             _trainerService = trainerService;
         }
 
-        // Get all trainers
-        // Any authenticated user can view trainers
+        // GET: api/Trainer
+        // Admin, Trainer, and Member can view trainers
+        [Authorize(Roles = "Admin,Trainer,Member")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -27,41 +28,47 @@ namespace FitnessPlatform.Controllers
             return Ok(trainers);
         }
 
-
-        // Create trainer
-        // Only Admin can create trainer
+        // POST: api/Trainer
+        // Only Admin can create a trainer
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(TrainerInputDTOs dto)
         {
+<<<<<<< HEAD
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
             await _trainerService.CreateTrainer(dto, userId);
 
+=======
+            await _trainerService.CreateTrainer(dto);
+>>>>>>> b89413820219f0e748fe20d374a8945db314919d
             return Ok("Trainer created successfully.");
         }
 
-        // Update trainer
-        // Only Admin can update trainer
+        // PUT: api/Trainer/5
+        // Only Admin can update a trainer
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, TrainerInputDTOs dto)
         {
             var result = await _trainerService.UpdateTrainer(id, dto);
 
             if (!result)
-                return NotFound();
+                return NotFound("Trainer not found.");
 
             return Ok("Trainer updated successfully.");
         }
 
-        // Delete trainer
-        // Only Admin can delete trainer
+        // DELETE: api/Trainer/5
+        // Only Admin can delete a trainer
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _trainerService.DeleteTrainer(id);
 
             if (!result)
-                return NotFound();
+                return NotFound("Trainer not found.");
 
             return Ok("Trainer deleted successfully.");
         }

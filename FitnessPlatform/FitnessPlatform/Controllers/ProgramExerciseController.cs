@@ -22,7 +22,7 @@ namespace FitnessPlatform.Controllers
         // GET: api/ProgramExercise
         // Member + Trainer
         [HttpGet]
-        [Authorize(Roles = "Member,Trainer")]
+        [Authorize(Roles = "Admin,Member,Trainer")]
         public async Task<IActionResult> GetAllProgramExercises()
         {
             var programExercises = await _programExerciseService.GetAllProgramExercises();
@@ -34,7 +34,7 @@ namespace FitnessPlatform.Controllers
         // GET: api/ProgramExercise/{id}
         // Member + Trainer
         [HttpGet("{id}")]
-        [Authorize(Roles = "Member,Trainer")]
+        [Authorize(Roles = "Admin,Member,Trainer")]
         public async Task<IActionResult> GetProgramExerciseById(int id)
         {
             var programExercise = await _programExerciseService.GetProgramExerciseById(id);
@@ -51,7 +51,7 @@ namespace FitnessPlatform.Controllers
         // POST: api/ProgramExercise
         // Trainer only
         [HttpPost]
-        [Authorize(Roles = "Trainer")]
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> CreateProgramExercise(ProgramExerciseInputDTO dto)
         {
             await _programExerciseService.CreateProgramExercise(dto);
@@ -63,7 +63,7 @@ namespace FitnessPlatform.Controllers
         // PUT: api/ProgramExercise/{id}
         // Trainer only
         [HttpPut("{id}")]
-        [Authorize(Roles = "Trainer")]
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> UpdateProgramExercise(int id, ProgramExerciseInputDTO dto)
         {
             var result = await _programExerciseService.UpdateProgramExercise(id, dto);
@@ -79,7 +79,7 @@ namespace FitnessPlatform.Controllers
         // DELETE: api/ProgramExercise/{id}
         // Trainer only
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Trainer")]
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> DeleteProgramExercise(int id)
         {
             var result = await _programExerciseService.DeleteProgramExercise(id);

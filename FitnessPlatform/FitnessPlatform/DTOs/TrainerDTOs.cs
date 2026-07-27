@@ -44,6 +44,5 @@ namespace FitnessPlatform.DTOs
 
         public string specialization { get; set; }
 
-
     }
 }
