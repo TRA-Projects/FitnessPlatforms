@@ -6,6 +6,7 @@ using static FitnessPlatform.DTOs.SubscriptionDTOs;
 namespace FitnessPlatform.Controllers
 {
     
+        [Authorize]
         [Route("api/[controller]")]
         [ApiController]
         public class SubscriptionController : ControllerBase
@@ -40,6 +41,7 @@ namespace FitnessPlatform.Controllers
             }
 
             // POST: api/Subscription
+            [Authorize(Roles = "Admin")]
             [HttpPost]
             public async Task<IActionResult> CreateSubscription(SubscriptionInputDTO dto)
             {
@@ -62,7 +64,8 @@ namespace FitnessPlatform.Controllers
                 return Ok("Subscription updated successfully");
             }
 
-            // DELETE: api/Subscription/5
+        // DELETE: api/Subscription/5
+            [Authorize(Roles = "Admin")]
             [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteSubscription(int id)
             {
