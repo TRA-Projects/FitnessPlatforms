@@ -45,7 +45,7 @@ namespace FitnessPlatform.Controllers
 
 
         // POST: api/WorkoutProgram
-        [Authorize(Roles = "Trainer")]
+        [Authorize(Roles = "Admin,Trainer")]
         [HttpPost]
         public async Task<IActionResult> CreateWorkoutProgram(
             WorkoutProgramInputDTO dto)
