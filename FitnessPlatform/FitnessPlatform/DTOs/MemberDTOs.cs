@@ -5,8 +5,6 @@ namespace FitnessPlatform.DTOs
     // Used when creating a new member
     public class MemberInputDTO
     {
-        [Required]
-        public int userId { get; set; }
 
         [Required]
         [MaxLength(100)]
