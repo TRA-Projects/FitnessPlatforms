@@ -18,7 +18,6 @@ namespace FitnessPlatform.Controllers
             _trainerService = trainerService;
         }
 
-        // GET: api/Trainer
         // Admin, Trainer, and Member can view trainers
         [Authorize(Roles = "Admin,Trainer,Member")]
         [HttpGet]
@@ -28,24 +27,24 @@ namespace FitnessPlatform.Controllers
             return Ok(trainers);
         }
 
-        // POST: api/Trainer
+     
         // Only Admin can create a trainer
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(TrainerInputDTOs dto)
         {
-<<<<<<< HEAD
+
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
             await _trainerService.CreateTrainer(dto, userId);
 
-=======
-            await _trainerService.CreateTrainer(dto);
->>>>>>> b89413820219f0e748fe20d374a8945db314919d
+
+           
+
             return Ok("Trainer created successfully.");
         }
 
-        // PUT: api/Trainer/5
+     
         // Only Admin can update a trainer
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
