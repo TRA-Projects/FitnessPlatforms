@@ -74,6 +74,18 @@ namespace FitnessPlatform.Services
 
             await _userRepository.CreateUser(user);
 
+            Member member = new Member
+            {
+               fullName = dto.username,
+               currentWeight = dto.currentWeight
+            
+            
+            
+            };
+            //mem
+            //send email
+
+
             return true;
         }
 
