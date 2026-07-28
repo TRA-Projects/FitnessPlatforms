@@ -22,6 +22,7 @@ namespace FitnessPlatform.DTOs
         [Required]
         [MaxLength(20)]
         public string Role { get; set; }
+        
 
     }
     public class LoginDTO

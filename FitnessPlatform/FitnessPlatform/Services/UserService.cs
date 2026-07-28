@@ -9,11 +9,15 @@ namespace FitnessPlatform.Services
     {
      private readonly IUserRepository _userRepository;
         private readonly AuthService _authService;
+        private readonly EmailService _emailService;
+
         // Constructor
-        public UserService(IUserRepository userRepository, AuthService authService)
+        public UserService(
+        IUserRepository userRepository,AuthService authService, EmailService emailService) 
         {
             _userRepository = userRepository;
             _authService = authService;
+            _emailService = emailService;
         }
 
         // Get all users
@@ -73,6 +77,15 @@ namespace FitnessPlatform.Services
             };
 
             await _userRepository.CreateUser(user);
+
+           
+         
+            //send email
+            await _emailService.SendEmailAsync(
+                user.email,
+                "Welcome to Fitness Platform",
+                $"Hello {user.userName}, Welcome to Fitness Platform!"
+            );
 
             return true;
         }
