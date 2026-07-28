@@ -22,31 +22,7 @@ namespace FitnessPlatform.DTOs
         [Required]
         [MaxLength(20)]
         public string Role { get; set; }
-        /// <summary>
-        /// //////////////////////////////////////////////////////////////////////////////////////
-        /// </summary>
-
-        [Required(ErrorMessage = "Phone Number is required.")]
-        [MaxLength(15)]
-        public string phoneNumber { get; set; }//  user input  
-
-        [Required(ErrorMessage = "Date of birth is required.")]
-        public DateTime dateOfBirth { get; set; }//  user input
-
-        [Required(ErrorMessage = "Gender is required.")]
-        [MaxLength(10)]
-        public string gender { get; set; }//  user input
-
-        [Required(ErrorMessage = "height is required.")]
-        [Range(50, 250,
-           ErrorMessage = "Height must be between 50 and 250 cm.")]
-        public double height { get; set; }//  user input
-
-        [Required(ErrorMessage = "Weight is required.")]
-        [Range(20, 300,
-          ErrorMessage = "Weight must be between 20 and 300 kg.")]
-        public double currentWeight { get; set; }//user input
-
+        
 
     }
     public class LoginDTO
