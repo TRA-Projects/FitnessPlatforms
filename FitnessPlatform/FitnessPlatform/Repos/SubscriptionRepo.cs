@@ -34,21 +34,47 @@ namespace FitnessPlatform.Repos
                 .FirstOrDefaultAsync(s => s.subscriptionId == id);
         }
         // Create subscription
-        public async Task<Subscription> CreateSubscription(
-            Subscription subscription)
+        public async Task<Subscription> CreateSubscription(Subscription subscription)
         {
-            _context.Subscriptions.Add(subscription);//add repo to subscription table
+            // planId must be valid and exist in the MembershipPlans table
 
-            await _context.SaveChangesAsync();//save it at SQL Server
+            var plan = await _context.MembershipPlans.FindAsync(subscription.planId);
+
+            if (plan == null)
+            {
+                throw new Exception("Membership plan not found.");
+            }
+
+            // if startDate is not provided, set it to the current date
+            if (subscription.startDate == default)
+            {
+                subscription.startDate = DateTime.Now;
+            }
+
+            // calculate the endDate based on the startDate and the duration of the plan
+
+            subscription.EndDate = subscription.startDate.AddDays(plan.durationInDays);
+
+            _context.Subscriptions.Add(subscription);
+
+            await _context.SaveChangesAsync();
 
             return subscription;
         }
 
 
         // Update subscription
-        public async Task UpdateSubscription(
-            Subscription subscription)
+        public async Task UpdateSubscription(Subscription subscription)
         {
+            var plan = await _context.MembershipPlans.FindAsync(subscription.planId);
+
+            if (plan == null)
+            {
+                throw new Exception("Membership plan not found.");
+            }
+
+            subscription.EndDate = subscription.startDate.AddDays(plan.durationInDays);
+
             _context.Subscriptions.Update(subscription);
 
             await _context.SaveChangesAsync();
