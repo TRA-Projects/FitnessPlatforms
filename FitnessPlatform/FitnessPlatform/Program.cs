@@ -1,4 +1,5 @@
 
+using FitnessPlatform.Configurations;
 using FitnessPlatform.Repos;
 using FitnessPlatform.Repos.Interfaces;
 using FitnessPlatform.Services;
@@ -49,6 +50,10 @@ namespace FitnessPlatform
 
             builder.Services.AddScoped<IWorkoutSessionRepository, WorkoutSessionRepo>();
 
+            // Email Settings & Service Registration
+            builder.Services.Configure<EmailSettings>(
+                builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.AddScoped<EmailService>();
 
             // Services
             builder.Services.AddScoped<UserService>();
@@ -62,6 +67,7 @@ namespace FitnessPlatform
             builder.Services.AddScoped<BodyMeasurementService>();
             builder.Services.AddScoped<NutritionPlanService>();
             builder.Services.AddScoped<WorkoutSessionService>();
+
 
             // JWT Authentication Service
             builder.Services.AddScoped<AuthService>();
