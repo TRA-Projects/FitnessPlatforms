@@ -7,8 +7,8 @@ namespace FitnessPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // Authentication: User must be logged in
-    public class MembershipPlanController : ControllerBase
+    [Authorize] // أي مستخدم مسجل دخول يستطيع الوصول بشكل عام
+    public class MembershipPlanController : ControllerBase
     {
         private readonly MembershipPlanService _membershipPlanService;
 
@@ -17,9 +17,9 @@ namespace FitnessPlatform.Controllers
             _membershipPlanService = membershipPlanService;
         }
 
-        // Get all membership plans
-        // Accessible for all authenticated users
-        [HttpGet]
+        // Get all membership plans
+        // Member, Trainer, Admin
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var plans = await _membershipPlanService.GetAllPlans();
@@ -27,9 +27,9 @@ namespace FitnessPlatform.Controllers
             return Ok(plans);
         }
 
-        // Get membership plan by id
-        // Accessible for all authenticated users
-        [HttpGet("{id}")]
+        // Get membership plan by id
+        // Member, Trainer, Admin
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var plan = await _membershipPlanService.GetPlanById(id);
@@ -40,8 +40,9 @@ namespace FitnessPlatform.Controllers
             return Ok(plan);
         }
 
-        // Create membership plan
-        // Only Admin users can create membership plans
+        // Create membership plan
+        // Admin only
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(MembershipPlanDTOs dto)
         {
@@ -50,8 +51,9 @@ namespace FitnessPlatform.Controllers
             return Ok("Membership plan created successfully.");
         }
 
-        // Update membership plan
-        // Only Admin users can update membership plans
+        // Update membership plan
+        // Admin only
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, MembershipPlanDTOs dto)
         {
@@ -63,8 +65,9 @@ namespace FitnessPlatform.Controllers
             return Ok("Membership plan updated successfully.");
         }
 
-        // Delete membership plan
-        // Only Admin users can delete membership plans
+        // Delete membership plan
+        // Admin only
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
