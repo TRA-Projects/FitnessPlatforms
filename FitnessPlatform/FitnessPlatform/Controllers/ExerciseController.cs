@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
 {
-    [Route("api/[controller]")]
+
+    [Route("api/[controller]")] // show the path of API => api/Exercise
     [ApiController]
-    [Authorize]
+    [Authorize] 
     public class ExerciseController : ControllerBase
     {
         private readonly ExerciseService _exerciseService;
@@ -19,7 +20,7 @@ namespace FitnessPlatform.Controllers
 
         //==========================
         // GET: api/Exercise
-        // Member + Trainer
+        // Admin + Member + Trainer
         [HttpGet]
         [Authorize(Roles = "Admin,Member,Trainer")]
         public async Task<IActionResult> GetAllExercises()
@@ -31,7 +32,7 @@ namespace FitnessPlatform.Controllers
 
         //==========================
         // GET: api/Exercise/{id}
-        // Member + Trainer
+        // Admin + Member + Trainer
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Member,Trainer")]
         public async Task<IActionResult> GetExerciseById(int id)
@@ -46,7 +47,7 @@ namespace FitnessPlatform.Controllers
 
         //==========================
         // POST: api/Exercise
-        // Trainer only
+        // Admin + Trainer
         [HttpPost]
         [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> CreateExercise(ExerciseInputDTO dto)
@@ -58,7 +59,7 @@ namespace FitnessPlatform.Controllers
 
         //==========================
         // PUT: api/Exercise/{id}
-        // Trainer only
+        // Admin + Trainer 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> UpdateExercise(int id,ExerciseInputDTO dto)
@@ -73,7 +74,7 @@ namespace FitnessPlatform.Controllers
 
         //==========================
         // DELETE: api/Exercise/{id}
-        // Trainer only
+        // Admin + Trainer
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> DeleteExercise(int id)

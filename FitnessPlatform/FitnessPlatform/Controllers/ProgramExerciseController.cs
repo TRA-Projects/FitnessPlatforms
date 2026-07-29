@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessPlatform.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] // show the path of API => api/ProgramExercise
     [ApiController]
     [Authorize]
     public class ProgramExerciseController : ControllerBase
@@ -20,7 +20,7 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // GET: api/ProgramExercise
-        // Member + Trainer
+        // Admin + Member + Trainer
         [HttpGet]
         [Authorize(Roles = "Admin,Member,Trainer")]
         public async Task<IActionResult> GetAllProgramExercises()
@@ -32,7 +32,7 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // GET: api/ProgramExercise/{id}
-        // Member + Trainer
+        // Admin + Member + Trainer
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Member,Trainer")]
         public async Task<IActionResult> GetProgramExerciseById(int id)
@@ -49,7 +49,7 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // POST: api/ProgramExercise
-        // Trainer only
+        // Admin + Trainer
         [HttpPost]
         [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> CreateProgramExercise([FromBody] ProgramExerciseInputDTO dto)
@@ -61,7 +61,7 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // PUT: api/ProgramExercise/{id}
-        // Trainer only
+        // Admin + Trainer
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> UpdateProgramExercise(int id, ProgramExerciseInputDTO dto)
@@ -77,7 +77,7 @@ namespace FitnessPlatform.Controllers
 
         //============================
         // DELETE: api/ProgramExercise/{id}
-        // Trainer only
+        // Admin + Trainer
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> DeleteProgramExercise(int id)

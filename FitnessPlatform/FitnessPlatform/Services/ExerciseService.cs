@@ -18,6 +18,7 @@ namespace FitnessPlatform.Services
         // Get all exercises
         public async Task<IEnumerable<ExerciseOutputDTO>> GetAllExercises()
         {
+            // Retrieve all exercise records
             var exercises = await _exerciseRepository.GetAllExercises();
 
             return exercises.Select(e => new ExerciseOutputDTO
@@ -32,6 +33,7 @@ namespace FitnessPlatform.Services
         // Get exercise by id
         public async Task<ExerciseDetailsDTO?> GetExerciseById(int id)
         {
+            //call Repository to get an Exercise by id
             var exercise = await _exerciseRepository.GetExerciseById(id);
 
             if (exercise == null)
@@ -52,6 +54,7 @@ namespace FitnessPlatform.Services
         // Create exercise
         public async Task CreateExercise(ExerciseInputDTO dto)
         {
+            // Create a new Exercise entity
             Exercise exercise = new Exercise
             {
                 exerciseName = dto.exerciseName,
@@ -61,6 +64,7 @@ namespace FitnessPlatform.Services
                 difficulityLevel = dto.difficultyLevel
             };
 
+            // Save the new exercise.
             await _exerciseRepository.CreateExercise(exercise);
         }
 
@@ -68,17 +72,20 @@ namespace FitnessPlatform.Services
         // Update exercise
         public async Task<bool> UpdateExercise(int id, ExerciseInputDTO dto)
         {
+            // Find the exercise by ID
             var exercise = await _exerciseRepository.GetExerciseById(id);
 
             if (exercise == null)
                 return false;
 
+            // Update the exercise properties 
             exercise.exerciseName = dto.exerciseName;
             exercise.targetMuscle = dto.targetMuscle;
             exercise.videoUrl = dto.videoUrl;
             exercise.equipment = dto.erquipment;
             exercise.difficulityLevel = dto.difficultyLevel;
 
+            // Save the updated exercise
             await _exerciseRepository.UpdateExercise(exercise);
 
             return true;
@@ -88,11 +95,13 @@ namespace FitnessPlatform.Services
         // Delete exercise
         public async Task<bool> DeleteExercise(int id)
         {
+            // Find the exercise first
             var exercise = await _exerciseRepository.GetExerciseById(id);
 
             if (exercise == null)
                 return false;
 
+            // Delete the exercise
             await _exerciseRepository.DeleteExercise(id);
 
             return true;

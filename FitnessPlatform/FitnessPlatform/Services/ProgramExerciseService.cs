@@ -18,8 +18,10 @@ namespace FitnessPlatform.Services
         // Get all program exercises
         public async Task<IEnumerable<ProgramExerciseOutputDTO>> GetAllProgramExercises()
         {
+            // Review all program exercise records
             var programExercises = await _programExerciseRepository.GetAllProgramExercises();
 
+            // Convert each entity into an Output DTO
             return programExercises.Select(pe => new ProgramExerciseOutputDTO
             {
                 programExerciseId = pe.programExerciseId,
@@ -35,6 +37,7 @@ namespace FitnessPlatform.Services
         // Get program exercise by id
         public async Task<ProgramExerciseDetailsDTO?> GetProgramExerciseById(int id)
         {
+            // Search for the program exercise
             var programExercise = await _programExerciseRepository.GetProgramExerciseById(id);
 
             if (programExercise == null)
@@ -57,6 +60,7 @@ namespace FitnessPlatform.Services
         // Create program exercise
         public async Task CreateProgramExercise(ProgramExerciseInputDTO dto)
         {
+            // Create a new ProgramExercise entity
             ProgramExercise programExercise = new ProgramExercise
             {
                 programId = dto.programId,
@@ -67,6 +71,7 @@ namespace FitnessPlatform.Services
                 restTime = dto.restTime
             };
 
+            // Save the new record
             await _programExerciseRepository.CreateProgramExercise(programExercise);
         }
 
@@ -74,11 +79,13 @@ namespace FitnessPlatform.Services
         // Update program exercise
         public async Task<bool> UpdateProgramExercise(int id, ProgramExerciseInputDTO dto)
         {
+            // Find the program exercise by ID
             var programExercise = await _programExerciseRepository.GetProgramExerciseById(id);
 
             if (programExercise == null)
                 return false;
 
+            // Update the entity properties
             programExercise.programId = dto.programId;
             programExercise.exerciseId = dto.exerciseId;
             programExercise.sets = dto.sets;
@@ -86,6 +93,7 @@ namespace FitnessPlatform.Services
             programExercise.dayOfWeek = dto.dayOfWeek;
             programExercise.restTime = dto.restTime;
 
+            // Save the updated record
             await _programExerciseRepository.UpdateProgramExercise(programExercise);
 
             return true;
@@ -93,13 +101,16 @@ namespace FitnessPlatform.Services
 
         //==========================
         // Delete program exercise
+        // Returns false if the record does not exist
         public async Task<bool> DeleteProgramExercise(int id)
         {
+            // Find the program exercise first
             var programExercise = await _programExerciseRepository.GetProgramExerciseById(id);
 
             if (programExercise == null)
                 return false;
 
+            // Delete the record
             await _programExerciseRepository.DeleteProgramExercise(id);
 
             return true;
