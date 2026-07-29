@@ -37,11 +37,11 @@ namespace FitnessPlatform.Controllers
             public async Task<IActionResult> GetUserById(int id)
             {
                 var user = await _userService.GetUserById(id);
+            // في حال عدم وجود المستخدم في قاعدة البيانات
+            if (user == null)
+                    return NotFound("User not found.");// إرجاع كود 404
 
-                if (user == null)
-                    return NotFound("User not found.");
-
-                return Ok(user);
+            return Ok(user);
             }
 
             
@@ -50,11 +50,11 @@ namespace FitnessPlatform.Controllers
             public async Task<IActionResult> Register(RegisterDTO dto)
             {
                 var result = await _userService.Register(dto);
+            // إذا فشل التسجيل (مثلاً البريد الإلكتروني مستخدم مسبقاً)
+            if (!result)
+                    return BadRequest("Email already exists.");// إرجاع كود 400
 
-                if (!result)
-                    return BadRequest("Email already exists.");
-
-                return Ok("User registered successfully.");
+            return Ok("User registered successfully.");
             }
 
         
@@ -64,12 +64,12 @@ namespace FitnessPlatform.Controllers
         {
             var result = await _userService.Login(dto);
 
-
+            // إذا كانت بيانات الدخول خاطئة (البريد أو كلمة المرور)
             if (result == null)
-                return Unauthorized("Invalid email or password.");
+                return Unauthorized("Invalid email or password.");//400
 
 
-            return Ok(result);
+            return Ok(result);//200
         }
 
 
