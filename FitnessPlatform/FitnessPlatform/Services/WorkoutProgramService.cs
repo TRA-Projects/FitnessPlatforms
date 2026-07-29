@@ -26,8 +26,8 @@ namespace FitnessPlatform.Services
             {
                 programId = p.programId,
                 programName = p.programName,
-                memberName = p.Member.fullName,
-                trainerName = p.Trainer.fullName,
+                memberName = p.Member?.fullName ?? "N/A",
+                trainerName = p.Trainer?.fullName ?? "N/A",
                 DurationInWeeks = p.DurationInWeeks,
                 Goal = p.Goal
             });
@@ -48,8 +48,8 @@ namespace FitnessPlatform.Services
                 createdAt = program.createdAt,
                 DurationInWeeks = program.DurationInWeeks,
                 Goal = program.Goal,
-                memberName = program.Member.fullName,
-                trainerName = program.Trainer.fullName
+                memberName = program.Member?.fullName ?? "N/A",
+                trainerName = program.Trainer?.fullName ?? "N/A"
             };
         }
 
