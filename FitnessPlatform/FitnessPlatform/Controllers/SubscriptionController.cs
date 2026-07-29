@@ -65,9 +65,9 @@ namespace FitnessPlatform.Controllers
             }
 
         // DELETE: api/Subscription/5
-            [Authorize(Roles = "Admin")]
-            [HttpDelete("{id}")]
-            public async Task<IActionResult> DeleteSubscription(int id)
+        [Authorize(Roles = "Admin,Member")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteSubscription(int id)
             {
                 var result = await _subscriptionService.DeleteSubscription(id);
 
