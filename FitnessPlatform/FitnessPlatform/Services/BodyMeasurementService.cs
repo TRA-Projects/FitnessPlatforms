@@ -22,7 +22,7 @@ namespace FitnessPlatform.Services
             return measurements.Select(m => new BodyMeasurementDTOs.BodyMeasurementOutputDTO
             {
                 measurementId = m.measurementId,
-                memberName = m.Member.fullName,
+                memberName = m.Member?.fullName ?? "N/A",
                 measurementDate = m.measurementDate,
                 weight = m.weight,
                 bodyFatPercentage = m.bodyFatPercentage,
@@ -41,7 +41,7 @@ namespace FitnessPlatform.Services
             return new BodyMeasurementDTOs.BodyMeasurementDetailsDTO
             {
                 measurementId = measurement.measurementId,
-                memberName = measurement.Member.fullName,
+                memberName = measurement.Member?.fullName ?? "Unknown Member",
                 measurementDate = measurement.measurementDate,
                 weight = measurement.weight,
                 bodyFatPercentage = measurement.bodyFatPercentage,
@@ -53,11 +53,25 @@ namespace FitnessPlatform.Services
                 notes = measurement.notes
             };
         }
-
-        // Create body measurement
-        public async Task CreateBodyMeasurement(BodyMeasurementDTOs.BodyMeasurementInputDTO dto)
+        // Get measurements by member id
+        public async Task<IEnumerable<BodyMeasurementDTOs.BodyMeasurementOutputDTO>> GetMeasurementsByMemberId(int memberId)
         {
-            BodyMeasurement measurement = new BodyMeasurement
+            var measurements = await _bodyMeasurementRepo.GetMeasurementsByMemberId(memberId);
+
+            return measurements.Select(m => new BodyMeasurementDTOs.BodyMeasurementOutputDTO
+            {
+                measurementId = m.measurementId,
+                memberName = m.Member?.fullName ?? "Unknown Member",
+                measurementDate = m.measurementDate,
+                weight = m.weight,
+                bodyFatPercentage = m.bodyFatPercentage,
+                waistCircumference = m.waistCircumference
+            });
+        }
+        // Create body measurement
+        public async Task<int> CreateBodyMeasurement(BodyMeasurementDTOs.BodyMeasurementInputDTO dto)
+        {
+            var measurement = new BodyMeasurement
             {
                 memberId = dto.memberId,
                 measurementDate = dto.measurementDate,
@@ -71,9 +85,9 @@ namespace FitnessPlatform.Services
                 notes = dto.notes
             };
 
-            await _bodyMeasurementRepo.CreateBodyMeasurement(measurement);
+            var created = await _bodyMeasurementRepo.CreateBodyMeasurement(measurement);
+            return created.measurementId;
         }
-
         // Update body measurement
         public async Task<bool> UpdateBodyMeasurement(int id, BodyMeasurementDTOs.BodyMeasurementInputDTO dto)
         {
@@ -94,7 +108,6 @@ namespace FitnessPlatform.Services
             measurement.notes = dto.notes;
 
             await _bodyMeasurementRepo.UpdateBodyMeasurement(measurement);
-
             return true;
         }
 
@@ -107,7 +120,6 @@ namespace FitnessPlatform.Services
                 return false;
 
             await _bodyMeasurementRepo.DeleteBodyMeasurement(id);
-
             return true;
         }
     }

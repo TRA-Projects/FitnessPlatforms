@@ -8,23 +8,19 @@ namespace FitnessPlatform.Repos
     {
         private readonly FitnessContext _context;
 
-
         public BodyMeasurementRepo(FitnessContext context)
         {
             _context = context;
         }
 
-        //==========================
-        // Get all body measurements
         public async Task<IEnumerable<BodyMeasurement>> GetAllBodyMeasurements()
         {
             return await _context.BodyMeasurements
+                .AsNoTracking()
                 .Include(b => b.Member)
                 .ToListAsync();
         }
 
-        //==========================
-        // Get body measurement by id
         public async Task<BodyMeasurement?> GetBodyMeasurementById(int id)
         {
             return await _context.BodyMeasurements
@@ -32,51 +28,37 @@ namespace FitnessPlatform.Repos
                 .FirstOrDefaultAsync(b => b.measurementId == id);
         }
 
-        //==========================
-        // Get all measurements for specific member
-        public async Task<IEnumerable<BodyMeasurement>> GetMeasurementsByMemberId(
-            int memberId)
+        public async Task<IEnumerable<BodyMeasurement>> GetMeasurementsByMemberId(int memberId)
         {
             return await _context.BodyMeasurements
+                .AsNoTracking()
+                .Include(b => b.Member)
                 .Where(b => b.memberId == memberId)
                 .ToListAsync();
         }
 
-        //==========================
-        // Create new body measurement
-        public async Task<BodyMeasurement> CreateBodyMeasurement(
-            BodyMeasurement bodyMeasurement)
+        public async Task<BodyMeasurement> CreateBodyMeasurement(BodyMeasurement bodyMeasurement)
         {
             _context.BodyMeasurements.Add(bodyMeasurement);
-
             await _context.SaveChangesAsync();
-
             return bodyMeasurement;
         }
 
-        //==========================
-        // Update body measurement
-        public async Task UpdateBodyMeasurement(
-            BodyMeasurement bodyMeasurement)
+        public async Task UpdateBodyMeasurement(BodyMeasurement bodyMeasurement)
         {
             _context.BodyMeasurements.Update(bodyMeasurement);
-
             await _context.SaveChangesAsync();
         }
 
-        //==========================
-        // Delete body measurement
         public async Task DeleteBodyMeasurement(int id)
         {
-            var measurement = await GetBodyMeasurementById(id);
+            var measurement = await _context.BodyMeasurements.FindAsync(id);
 
             if (measurement != null)
             {
                 _context.BodyMeasurements.Remove(measurement);
-
                 await _context.SaveChangesAsync();
             }
         }
-
     }
 }
