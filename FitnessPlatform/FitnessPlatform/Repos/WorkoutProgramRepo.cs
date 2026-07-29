@@ -22,6 +22,7 @@ namespace FitnessPlatform.Repos
         {
             return await _context.WorkoutPrograms
                 .Include(w => w.Member)
+                .Include(w => w.Trainer)
                 .Include(w => w.ProgramExercises)
                 .ToListAsync();
         }
@@ -32,6 +33,7 @@ namespace FitnessPlatform.Repos
         {
             return await _context.WorkoutPrograms
                 .Include(w => w.Member)
+                .Include(w => w.Trainer)
                 .Include(w => w.ProgramExercises)
                 .FirstOrDefaultAsync(w => w.programId == id);
         }
