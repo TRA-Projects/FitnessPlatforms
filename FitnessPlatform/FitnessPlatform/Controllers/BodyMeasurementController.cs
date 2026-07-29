@@ -28,7 +28,7 @@ namespace FitnessPlatform.Controllers
 
 
         // GET: api/BodyMeasurement/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _service.GetBodyMeasurementById(id);
@@ -40,47 +40,49 @@ namespace FitnessPlatform.Controllers
 
             return Ok(result);
         }
-
+        // GET: api/BodyMeasurement/member/3
+        [HttpGet("member/{memberId:int}")]
+        public async Task<IActionResult> GetByMemberId(int memberId)
+        {
+            var result = await _service.GetMeasurementsByMemberId(memberId);
+            return Ok(result);
+        }
         // POST: api/BodyMeasurement
         [HttpPost]
-        public async Task<IActionResult> Create(
-            BodyMeasurementInputDTO dto)
+        public async Task<IActionResult> Create([FromBody] BodyMeasurementInputDTO dto)
         {
-            await _service.CreateBodyMeasurement(dto);
+            var createdId = await _service.CreateBodyMeasurement(dto);
 
-            return Ok("Body measurement created successfully");
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = createdId },
+                new { message = "Body measurement created successfully", id = createdId }
+            );
         }
 
         // PUT: api/BodyMeasurement/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(
-            int id,
-            BodyMeasurementInputDTO dto)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] BodyMeasurementInputDTO dto)
         {
-            var result = await _service.UpdateBodyMeasurement(id, dto);
+            var success = await _service.UpdateBodyMeasurement(id, dto);
 
-
-            if (!result)
+            if (!success)
                 return NotFound();
 
-
-            return Ok("Body measurement updated successfully");
+            return NoContent();
         }
 
         // DELETE: api/BodyMeasurement/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _service.DeleteBodyMeasurement(id);
+            var success = await _service.DeleteBodyMeasurement(id);
 
-
-            if (!result)
+            if (!success)
                 return NotFound();
 
-
-            return Ok("Body measurement deleted successfully");
+            return NoContent();
         }
-
     }
 }
 
