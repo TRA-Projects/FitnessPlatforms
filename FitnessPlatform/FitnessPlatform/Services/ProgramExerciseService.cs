@@ -23,7 +23,7 @@ namespace FitnessPlatform.Services
             return programExercises.Select(pe => new ProgramExerciseOutputDTO
             {
                 programExerciseId = pe.programExerciseId,
-                exerciseName = pe.Exercise.exerciseName,
+                exerciseName = pe.Exercise?.exerciseName ?? "N/A",
                 sets = pe.sets,
                 repetitions = pe.repetitions,
                 dayOfWeek = pe.dayOfWeek,
@@ -45,7 +45,7 @@ namespace FitnessPlatform.Services
                 programExerciseId = programExercise.programExerciseId,
                 programId = programExercise.programId,
                 exerciseId = programExercise.exerciseId,
-                exerciseName = programExercise.Exercise.exerciseName,
+                exerciseName = programExercise.Exercise?.exerciseName ?? "N/A",
                 sets = programExercise.sets,
                 repetitions = programExercise.repetitions,
                 dayOfWeek = programExercise.dayOfWeek,
