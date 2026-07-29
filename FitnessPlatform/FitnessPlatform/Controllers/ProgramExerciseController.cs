@@ -52,7 +52,7 @@ namespace FitnessPlatform.Controllers
         // Trainer only
         [HttpPost]
         [Authorize(Roles = "Admin,Trainer")]
-        public async Task<IActionResult> CreateProgramExercise(ProgramExerciseInputDTO dto)
+        public async Task<IActionResult> CreateProgramExercise([FromBody] ProgramExerciseInputDTO dto)
         {
             await _programExerciseService.CreateProgramExercise(dto);
 
