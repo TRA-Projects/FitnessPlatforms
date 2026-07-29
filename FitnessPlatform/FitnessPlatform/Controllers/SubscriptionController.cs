@@ -41,7 +41,7 @@ namespace FitnessPlatform.Controllers
             }
 
             // POST: api/Subscription
-            [Authorize(Roles = "Admin")]
+            [Authorize(Roles = "Admin,Member")]
             [HttpPost]
             public async Task<IActionResult> CreateSubscription(SubscriptionInputDTO dto)
             {
@@ -65,8 +65,8 @@ namespace FitnessPlatform.Controllers
             }
 
         // DELETE: api/Subscription/5
-        [Authorize(Roles = "Admin,Member")]
-        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSubscription(int id)
             {
                 var result = await _subscriptionService.DeleteSubscription(id);
