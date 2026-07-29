@@ -11,6 +11,8 @@ namespace FitnessPlatform.Controllers
     [Authorize]
     public class NutritionPlanController : ControllerBase
     {
+        // Service responsible for Nutrition Plan business logic
+
         private readonly NutritionPlanService _nutritionPlanService;
 
         // Constructor Injection
@@ -92,7 +94,7 @@ namespace FitnessPlatform.Controllers
         }
 
         //====================================================
-        // DELETE: api/NutritionPlan/{id}
+        // Deletes a nutrition plan by its ID.
         // Delete a nutrition plan.
         // Accessible by Admin only.
         //====================================================
